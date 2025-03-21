@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>代理配置</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .proxy-item { display: flex; justify-content: space-between; align-items: center; }
+    .proxy-item span { flex-grow: 1; }
+    .proxy-item button { margin-left: 5px; }
+  </style>
+</head>
+<body>
+  <h3>全局代理切换</h3>
+  <div id="status" style="margin-bottom: 10px; color: green;">当前状态：未知</div>
+  <select id="configList">
+    <option value="none">不使用代理</option>
+  </select>
+  <button id="apply">应用选中配置</button>
+
+  
+  <h4>快速一键切换</h4>
+  <div id="quickButtons" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;"></div>
+  <h4>添加新代理</h4>
+    
+  <input type="text" id="configName" placeholder="配置名称">
+  <select id="proxyType">
+    <option value="socks5">SOCKS5</option>
+    <option value="http">HTTP</option>
+  </select>
+  <input type="text" id="proxyHost" placeholder="代理 IP">
+  <input type="text" id="proxyPort" placeholder="端口">
+  <button id="saveConfig">保存配置</button>
+
+  <h4>已保存代理</h4>
+  <div id="savedConfigs"></div>
+
+  
+  <h4>WebRTC 防泄漏</h4>
+  <label><input type="checkbox" id="webrtcToggle"> 屏蔽 WebRTC 泄漏真实 IP</label>
+  <br><br>
+  <h4>代理例外名单</h4>
+    
+  <input type="text" id="exceptionDomain" placeholder="例外域名 (如 *.aaa.com)">
+  <button id="addException">添加例外</button>
+  <ul id="exceptionList"></ul>
+
+  <script src="popup.js"></script>
+</body>
+</html>

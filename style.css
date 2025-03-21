@@ -1,0 +1,9 @@
+body {
+  font-family: sans-serif;
+  padding: 10px;
+  width: 250px;
+}
+input, select {
+  width: 100%;
+  margin: 5px 0;
+}
