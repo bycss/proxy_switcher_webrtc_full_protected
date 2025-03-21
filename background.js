@@ -13,6 +13,9 @@ chrome.runtime.onStartup.addListener(async () => {
 
 chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
   if (message.action === 'setProxy') {
+    const result = await chrome.storage.local.get('exceptions');
+    const bypassList = result.exceptions || [];
+
     const config = {
       mode: 'fixed_servers',
       rules: {
@@ -21,7 +24,7 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
           host: message.host,
           port: parseInt(message.port)
         },
-        bypassList: []
+        bypassList: bypassList
       }
     };
     chrome.proxy.settings.set({ value: config, scope: 'regular' });
