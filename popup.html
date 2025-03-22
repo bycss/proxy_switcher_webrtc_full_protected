@@ -1,32 +1,146 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Proxy Switcher</title>
-  </head>
-  <body style="width: 280px; padding: 10px; font-family: sans-serif;">
-    <div id="status"></div>
-    <select id="configList"></select>
-    <button id="apply">应用</button>
-    <h4>快速切换</h4>
-    <div id="quickButtons"></div>
-    <h4>添加新代理</h4>
-    <input id="configName" placeholder="代理名称，例如 US / 日本节点">
-    <select id="proxyType">
-      <option value="socks5">SOCKS5</option>
-      <option value="http">HTTP</option>
-      <option value="https">HTTPS</option>
-    </select>
-    <input id="proxyHost" placeholder="代理地址，例如 127.0.0.1">
-    <input id="proxyPort" placeholder="端口号，例如 1080">
-    <button id="saveConfig">保存</button>
-    <div id="savedConfigs"></div>
-    <h4>WebRTC 防泄漏</h4>
-    <input type="checkbox" id="webrtcToggle"> 屏蔽 WebRTC 泄漏真实 IP
-    <h4>代理例外名单</h4>
-    <input id="exceptionDomain" placeholder="例如 *.example.com 或 a.com">
-    <button id="addException">添加</button>
-    <ul id="exceptionList"></ul>
-    <script src="popup.js"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>Proxy Switcher</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 15px;
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    h4 {
+      margin-top: 20px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 3px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #status {
+      font-size: 13px;
+      padding: 5px;
+      margin-bottom: 10px;
+      background-color: #eef;
+      border: 1px solid #ccd;
+      border-radius: 5px;
+    }
+
+    #quickButtons button {
+      width: auto;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      padding: 5px 10px;
+      font-size: 13px;
+    }
+
+    ul#exceptionList {
+      list-style: none;
+      padding-left: 0;
+      font-size: 13px;
+    }
+
+    ul#exceptionList li {
+      background: #eee;
+      margin-bottom: 5px;
+      padding: 5px 8px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    ul#exceptionList li button {
+      background: #dc3545;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+    }
+
+    ul#exceptionList li button:hover {
+      background-color: #b52a3d;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+      font-size: 13px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      margin-right: 8px;
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+  <div id="status">Proxy disabled</div>
+
+  <label for="configList">Select Proxy Configuration:</label>
+  <select id="configList"></select>
+  <button id="apply">Apply</button>
+
+  <h4>Quick Switch</h4>
+  <div id="quickButtons"></div>
+
+  <h4>Add New Proxy</h4>
+  <input id="configName" placeholder="Name (e.g. US / JP)">
+  <select id="proxyType">
+    <option value="socks5">SOCKS5</option>
+    <option value="http">HTTP</option>
+    <option value="https">HTTPS</option>
+  </select>
+  <input id="proxyHost" placeholder="Proxy Host (e.g. 127.0.0.1)">
+  <input id="proxyPort" placeholder="Port (e.g. 1080)">
+  <button id="saveConfig">Save</button>
+   <br> </br> <br> </br> <br> 
+  <div id="savedConfigs"></div>
+ <br> </br>
+  <h4>WebRTC Leak Protection</h4>
+  <div class="checkbox-group">
+    <input type="checkbox" id="webrtcToggle">
+    <label for="webrtcToggle">Prevent real IP leak</label>
+  </div>
+
+  <h4>Bypass Domains</h4>
+  <input id="exceptionDomain" placeholder="e.g. *.example.com or a.com">
+  <button id="addException">Add</button>
+  <ul id="exceptionList"></ul>
+
+  <script src="popup.js"></script>
+</body>
 </html>
